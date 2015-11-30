@@ -9,6 +9,11 @@
 }(this, function () {
 
   function initAutoglitch(){
+
+    if(typeof glitch === 'undefined'){
+      throw('you must include glitch-canvas');
+    }
+
     var autoglitch_images = document.getElementsByClassName('autoglitch');
     var i;
     for(i = 0; i < autoglitch_images.length; i++){
