@@ -21,9 +21,9 @@ function transformOpts(opts){
 
 function autoGlitch(image, canvas, opts){
   var ctx = canvas.getContext('2d');
-  ctx.drawImage(image, 0, 0);
+  ctx.drawImage(image, 0, 0, image.width, image.height);
   var image_data = ctx.getImageData( 0, 0, canvas.clientWidth, canvas.clientHeight );
-  var sleep = parseInt(opts.delay) ||
+  var sleep = opts.delay ||
     Math.round(Math.random() * ((opts.maxdelay || 1000) - (opts.mindelay || 50)) + (opts.mindelay || 50));
 
   glitch(
