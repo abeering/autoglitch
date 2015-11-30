@@ -8,10 +8,12 @@
   }
 }(this, function () {
 
+  var timeout_id;
+
   function initAutoglitch(){
 
     if(typeof glitch === 'undefined'){
-      throw('you must include glitch-canvas');
+      throw new Error('you must include glitch-canvas');
     }
 
     var autoglitch_images = document.getElementsByClassName('autoglitch');
@@ -34,13 +36,13 @@
 
   function transformOpts(opts){
     var amount = opts.amount ||
-      Math.round(Math.random() * (opts.maxamount || 99 ) - (opts.minamount || 0 ));
+      Math.round(Math.random() * (opts.maxamount || 99 ) - (opts.minamount || 0 ) + (opts.minquality || 0));
     var seed = opts.seed ||
-      Math.round(Math.random() * (opts.maxseed || 99 ) - (opts.minseed || 0 ));
+      Math.round(Math.random() * (opts.maxseed || 99 ) - (opts.minseed || 0 ) + (opts.minquality || 0));
     var quality = opts.quality ||
-      Math.round(Math.random() * (opts.maxquality || 99 ) - (opts.minquality || 0 ));
+      Math.round(Math.random() * (opts.maxquality || 99 ) - (opts.minquality || 0 ) + (opts.minquality || 0));
     var iterations = opts.iterations ||
-      Math.round(Math.random() * (opts.maxiterations || 99 ) - (opts.miniterations || 0 ));
+      Math.round(Math.random() * (opts.maxiterations || 99 ) - (opts.miniterations || 0 ) + (opts.miniterations || 0));
 
     return { amount: amount, seed: seed, iterations: iterations, quality: quality };
   }
@@ -60,11 +62,18 @@
       }
     );
 
-    setTimeout(function(){
+    timeout_id = setTimeout(function(){
       autoGlitch(image, canvas, opts);
     }, sleep);
   }
 
-  return initAutoglitch;
+  function getTimeoutId(){
+      return timeout_id;
+  }
+
+  return {
+    init: initAutoglitch,
+    timeout: getTimeoutId
+  }
 
 }));
