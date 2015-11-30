@@ -24,7 +24,6 @@
     var canvas = document.createElement("canvas");
     canvas.width = image_el.width;
     canvas.height = image_el.height;
-    canvas.style.border = '1px solid;';
     return canvas;
   }
 
