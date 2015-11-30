@@ -1,0 +1,52 @@
+function generateCanvasReplacement(image_el){
+  var canvas = document.createElement("canvas");
+  canvas.width = image_el.width;
+  canvas.height = image_el.height;
+  canvas.style.border = '1px solid;';
+  return canvas;
+}
+
+function transformOpts(opts){
+  var amount = opts.amount ||
+    Math.round(Math.random() * (opts.maxamount || 99 ) - (opts.minamount || 0 ));
+  var seed = opts.seed ||
+    Math.round(Math.random() * (opts.maxseed || 99 ) - (opts.minseed || 0 ));
+  var quality = opts.quality ||
+    Math.round(Math.random() * (opts.maxquality || 99 ) - (opts.minquality || 0 ));
+  var iterations = opts.iterations ||
+    Math.round(Math.random() * (opts.maxiterations || 99 ) - (opts.miniterations || 0 ));
+
+  return { amount: amount, seed: seed, iterations: iterations, quality: quality };
+}
+
+function autoGlitch(image, canvas, opts){
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(image, 0, 0);
+  var image_data = ctx.getImageData( 0, 0, canvas.clientWidth, canvas.clientHeight );
+  var sleep = parseInt(opts.delay) ||
+    Math.round(Math.random() * ((opts.maxdelay || 1000) - (opts.mindelay || 50)) + (opts.mindelay || 50));
+
+  glitch(
+    image_data,
+    transformOpts(opts),
+    function(image_data){
+      ctx.putImageData(image_data, 0, 0);
+    }
+  );
+
+  setTimeout(function(){
+    autoGlitch(image, canvas, opts);
+  }, sleep);
+}
+
+window.onload = function(){
+  var autoglitch_images = document.getElementsByClassName('autoglitch');
+  var i;
+  for(i = 0; i < autoglitch_images.length; i++){
+    var autoglitch_image = autoglitch_images[i];
+    var canvas_replacement = generateCanvasReplacement(autoglitch_image);
+    autoglitch_image.style.display = 'none';
+    autoglitch_image.parentNode.appendChild(canvas_replacement);
+    autoGlitch(autoglitch_image, canvas_replacement, autoglitch_image.dataset);
+  }
+}
