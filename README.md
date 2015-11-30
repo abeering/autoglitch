@@ -35,11 +35,13 @@ http://abeering.github.io/autoglitch/
 Options
 -------
 
+```
 (min|max)delay - the amount of time in milliseconds between image updates
 (min|max)amount - impacts how much the image bytes will be corrupted
 (min|max)seed - impacts the pixels which will be glitched
 (min|max)quality - the quality of the image read from the canvas
 (min|max)iterations - the number of times the corruption will be ran
+```
 
 Tips
 ----
