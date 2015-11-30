@@ -12,7 +12,7 @@ autoglitch is a library which both dynamically animates the glitch using client-
 Usage
 -------
 
-Most simply you can just applythe autoglitch class to an image.
+Most simply you can just apply the autoglitch class to an image.
 
 ```html
 <img src="foo.png" class="autoglitch" />
