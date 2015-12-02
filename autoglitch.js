@@ -20,27 +20,37 @@
     var i;
     for(i = 0; i < autoglitch_images.length; i++){
       var autoglitch_image = autoglitch_images[i];
-      // if there are no height/width attributes set (vs css)
-      // we need to ensure they are set or it will never render to canvas correctly
-      // (unrelated to this code)
-      if(!autoglitch_image.getAttribute('width')){
-        autoglitch_image.setAttribute('width',autoglitch_image.width);
+      if(autoglitch_image.complete){
+        initAutoglitchImage(autoglitch_image);
+      } else {
+        autoglitch_image.onload = function(){
+          initAutoglitchImage(autoglitch_image);
+        };
       }
-      if(!autoglitch_image.getAttribute('height')){
-        autoglitch_image.setAttribute('height',autoglitch_image.height);
-      }
-      
-      var canvas_replacement = generateCanvasReplacement(autoglitch_image);
-      autoglitch_image.style.display = 'none';
-      autoglitch_image.parentNode.appendChild(canvas_replacement);
-      autoGlitch(autoglitch_image, canvas_replacement, autoglitch_image.dataset);
     }
+  }
+
+  function initAutoglitchImage(autoglitch_image){
+    // if there are no height/width attributes set (vs css)
+    // we need to ensure they are set or it will never render to canvas correctly
+    // (unrelated to this code)
+    if(!autoglitch_image.getAttribute('width')){
+      autoglitch_image.setAttribute('width',autoglitch_image.width);
+    }
+    if(!autoglitch_image.getAttribute('height')){
+      autoglitch_image.setAttribute('height',autoglitch_image.height);
+    }
+
+    var canvas_replacement = generateCanvasReplacement(autoglitch_image);
+    autoglitch_image.style.display = 'none';
+    autoglitch_image.parentNode.appendChild(canvas_replacement);
+    autoGlitch(autoglitch_image, canvas_replacement, autoglitch_image.dataset);
   }
 
   function generateCanvasReplacement(image_el){
     var canvas = document.createElement("canvas");
-    canvas.width = image_el.width;
-    canvas.height = image_el.height;
+    canvas.width = image_el.getAttribute('width');
+    canvas.height = image_el.getAttribute('height');
     return canvas;
   }
 
