@@ -20,6 +20,16 @@
     var i;
     for(i = 0; i < autoglitch_images.length; i++){
       var autoglitch_image = autoglitch_images[i];
+      // if there are no height/width attributes set (vs css)
+      // we need to ensure they are set or it will never render to canvas correctly
+      // (unrelated to this code)
+      if(!autoglitch_image.getAttribute('width')){
+        autoglitch_image.setAttribute('width',autoglitch_image.width);
+      }
+      if(!autoglitch_image.getAttribute('height')){
+        autoglitch_image.setAttribute('height',autoglitch_image.height);
+      }
+      
       var canvas_replacement = generateCanvasReplacement(autoglitch_image);
       autoglitch_image.style.display = 'none';
       autoglitch_image.parentNode.appendChild(canvas_replacement);
