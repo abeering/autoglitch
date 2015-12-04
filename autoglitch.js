@@ -42,6 +42,8 @@
     }
 
     var canvas_replacement = generateCanvasReplacement(autoglitch_image);
+    // copy classes over (not inline styles)
+    canvas.className = image_el.className.replace('autoglitch','');
     autoglitch_image.style.display = 'none';
     autoglitch_image.parentNode.appendChild(canvas_replacement);
     autoGlitch(autoglitch_image, canvas_replacement, autoglitch_image.dataset);
