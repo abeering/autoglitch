@@ -1,0 +1,28 @@
+{
+  "name": "autoglitch",
+  "version": "1.0.0",
+  "description": "Automatically animate images with glitch effects.",
+  "main": "autoglitch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abeering/autoglitch.git"
+  },
+  "keywords": [
+    "glitch",
+    "effect",
+    "fx",
+    "javascript",
+    "canvas",
+    "animation",
+    "art"
+  ],
+  "author": "abeering",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abeering/autoglitch/issues"
+  },
+  "homepage": "https://github.com/abeering/autoglitch#readme"
+}
